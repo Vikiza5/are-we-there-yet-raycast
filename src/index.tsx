@@ -1,5 +1,13 @@
-import { MenuBarExtra, Icon, Color, open } from "@raycast/api";
+import { MenuBarExtra, Icon, Color, open, Cache } from "@raycast/api";
 import { getProgressIcon, useFetch } from "@raycast/utils";
+import { useState, useEffect, useMemo } from "react";
+
+const cache = new Cache();
+
+interface HistoryItem {
+  timestamp: number;
+  percent: number;
+}
 
 interface MigrationStatus {
   migration: string;
@@ -32,6 +40,68 @@ export default function Command() {
   const { isLoading, data, revalidate } = useFetch<ApiResponse>(
     "https://are-we-there-yet.hackclub.com/api/status",
   );
+
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+
+  useEffect(() => {
+    const cached = cache.get("migration_history");
+    if (cached) {
+      try {
+        setHistory(JSON.parse(cached));
+      } catch (e) {
+        console.error("Failed to parse history", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!data) return;
+
+    const currentPercent = data.migration_data.percent_completed;
+    const timestamp = new Date(data.last_updated).getTime();
+
+    setHistory((prev) => {
+      const lastItem = prev[prev.length - 1];
+
+      if (lastItem) {
+        // If percent drops, it's likely a new migration or reset
+        if (currentPercent < lastItem.percent) {
+          const newHistory = [{ timestamp, percent: currentPercent }];
+          cache.set("migration_history", JSON.stringify(newHistory));
+          return newHistory;
+        }
+        // If same percent, don't add duplicate
+        if (lastItem.percent === currentPercent) {
+          return prev;
+        }
+      }
+
+      const newHistory = [...prev, { timestamp, percent: currentPercent }];
+      cache.set("migration_history", JSON.stringify(newHistory));
+      return newHistory;
+    });
+  }, [data]);
+
+  const estimate = useMemo(() => {
+    if (history.length < 2) return null;
+
+    const first = history[0];
+    const last = history[history.length - 1];
+
+    const timeDiff = last.timestamp - first.timestamp;
+    const percentDiff = last.percent - first.percent;
+
+    if (percentDiff <= 0 || timeDiff <= 0) return null;
+
+    const msPerPercent = timeDiff / percentDiff;
+    const remainingPercent = 100 - last.percent;
+    const remainingMs = remainingPercent * msPerPercent;
+
+    return {
+      remainingMs,
+      completionDate: new Date(last.timestamp + remainingMs),
+    };
+  }, [history]);
 
   const percent = data?.migration_data.percent_completed;
   const status = data?.migration_data.status;
@@ -74,6 +144,21 @@ export default function Command() {
               subtitle={new Date(data.last_updated).toLocaleString()}
             />
           </MenuBarExtra.Section>
+
+          {estimate && (
+            <MenuBarExtra.Section title="Estimates">
+              <MenuBarExtra.Item
+                title="Estimated Completion"
+                subtitle={estimate.completionDate.toLocaleString()}
+                icon={Icon.Calendar}
+              />
+              <MenuBarExtra.Item
+                title="Time Remaining"
+                subtitle={formatDuration(estimate.remainingMs)}
+                icon={Icon.Clock}
+              />
+            </MenuBarExtra.Section>
+          )}
 
           <MenuBarExtra.Section title="Status Details">
             <MenuBarExtra.Item
@@ -168,4 +253,20 @@ function formatStatus(status?: string) {
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+function formatDuration(ms: number) {
+  if (ms < 0) return "Unknown";
+  const minutes = Math.floor((ms / (1000 * 60)) % 60);
+  const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+
+  const parts = [];
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+
+  if (parts.length === 0) return "< 1m";
+
+  return parts.join(" ");
 }
