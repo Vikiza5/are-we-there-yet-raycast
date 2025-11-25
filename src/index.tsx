@@ -1,5 +1,5 @@
 import { MenuBarExtra, Icon, Color, open } from "@raycast/api";
-import { useFetch } from "@raycast/utils";
+import { getProgressIcon, useFetch } from "@raycast/utils";
 
 interface MigrationStatus {
   migration: string;
@@ -67,7 +67,7 @@ export default function Command() {
             <MenuBarExtra.Item
               title="Percent Completed"
               subtitle={`${percent}%`}
-              icon={Icon.CircleProgress}
+              icon={getProgressIcon(percent! / 100)}
             />
             <MenuBarExtra.Item
               title="Last Updated"
