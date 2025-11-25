@@ -67,7 +67,7 @@ export default function Command() {
             <MenuBarExtra.Item
               title="Percent Completed"
               subtitle={`${percent}%`}
-              icon={getProgressIcon(percent! / 100)}
+              icon={getProgressIcon(percent! / 100, Color.SecondaryText)}
             />
             <MenuBarExtra.Item
               title="Last Updated"
